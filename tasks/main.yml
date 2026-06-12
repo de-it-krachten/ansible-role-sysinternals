@@ -1,0 +1,7 @@
+---
+
+- name: Install all sysinternal components
+  ansible.builtin.include_tasks: install.yml
+  loop: "{{ sysinternals_tools }}"
+  loop_control:
+    loop_var: tool

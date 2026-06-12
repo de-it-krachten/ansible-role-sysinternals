@@ -1,0 +1,19 @@
+---
+
+galaxy_info:
+  role_name: sysinternals
+  namespace: de_it_krachten
+  description: sysinternals
+  author: Mark van Huijstee
+  company: De IT Krachten BV
+  license: MIT
+  min_ansible_version: '2.9'
+  platforms:
+    - name: Windows
+      versions:
+        - 2012R2
+        - '2016'
+        - '2019'
+        - '2022'
+        - '2025'
+dependencies: []
