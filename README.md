@@ -41,12 +41,15 @@ sysinternals_tools_info:
   pendmoves:
     name: pendmoves
     url: https://download.sysinternals.com/files/pendmoves.zip
+    exe: pendmoves.exe
   handle:
     name: handle
-    url: https://download.sysinternals.com/files/handle.zip
+    url: https://download.sysinternals.com/files/Handle.zip
+    exe: handle.exe
   tcpview:
     name: tcpview
     url: https://download.sysinternals.com/files/TCPView.zip
+    exe: tcpview.exe
 
 sysinternals_tools: "{{ sysinternals_tools_info | dict2items | json_query('[].key') }}"
 </pre></code>
