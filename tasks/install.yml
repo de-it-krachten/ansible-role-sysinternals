@@ -1,0 +1,34 @@
+---
+
+- name: Set helper vars
+  ansible.builtin.set_fact:
+    __sysinternals_url: "{{ sysinternals_tools_info[tool]['url'] }}"
+    __sysinternals_tmp_local: "/tmp/{{ sysinternals_tools_info[tool]['url'] | basename }}"
+    __sysinternals_tmp_dest: "c:\\windows\\temp\\{{ sysinternals_tools_info[tool]['url'] | basename }}"
+    __sysinternals_dir: "{{ sysinternals_install_root }}/{{ sysinternals_tools_info[tool]['name'] }}"
+    __sysinternals_exe: "{{ sysinternals_tools_info[tool]['exe'] }}"
+
+- name: Get tool from sysinternals  # noqa ignore-errors
+  ansible.builtin.get_url:
+    url: "{{ __sysinternals_url }}"
+    dest: "{{ __sysinternals_tmp_local }}"
+    mode: "0644"
+  run_once: true
+  delegate_to: localhost
+  ignore_errors: true
+
+- name: Copy tool to remote host
+  ansible.windows.win_copy:
+    src: "{{ __sysinternals_tmp_local }}"
+    dest: "{{ __sysinternals_tmp_dest }}"
+
+- name: Create target location
+  ansible.windows.win_file:
+    path: "{{ __sysinternals_dir }}"
+    state: directory
+
+- name: Unzip file
+  community.windows.win_unzip:
+    src: "{{ __sysinternals_tmp_dest }}"
+    dest: "{{ __sysinternals_dir }}"
+    creates: "{{ sysinternals_install_root }}/{{ __sysinternals_exe }}"

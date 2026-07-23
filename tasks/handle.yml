@@ -1,0 +1,31 @@
+---
+
+- name: Get all open handles
+  ansible.windows.win_shell: |
+    $rawOutput = & C:\Windows\Temp\handle.exe -accepteula -nobanner -a "{{ handle_object }}"
+    $handles = @()
+    $pattern = '(?<ProcessName>\S+)\s+pid:\s+(?<PID>\d+)\s+type:\s+(?<Type>\S+)\s+(?<HandleID>[0-9A-F]+):\s+(?<Path>.+)'
+    $rawOutput -split '\r?\n' | Where-Object { $_ -match $pattern } | ForEach-Object {
+      $handles += [PSCustomObject]@{
+        processname = $matches.ProcessName
+        pid         = [int]$matches.PID
+        type        = $matches.Type
+        handle_id   = $matches.HandleID
+        path        = $matches.Path.Trim()
+      }
+    }
+    $handles | ConvertTo-Json -Compress
+  changed_when: false
+  register: handle_json
+
+- name: Close all handles
+  ansible.windows.win_shell: |
+    C:\Windows\Temp\handle.exe -accepteula -nobanner -c "{{ item.handle_id }}" -p {{ item.pid }} -y
+
+    # Attempt deletion
+    if (Test-Path "{{ item.path }}" -PathType Container) {
+        cmd /c "rd /s /q {{ item.path }}"
+    } else {
+        cmd /c "del /f /q {{ item.path }}"
+    }
+  loop: "{{ handle_json.stdout | from_json }}"

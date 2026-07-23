@@ -1,0 +1,93 @@
+---
+
+# Generic
+generic:
+  role: ansible-role-sysinternals
+  role_short: sysinternals
+  role_description: |
+    <basic role description>
+  collections: []
+
+# Supported platforms
+platforms:
+  rhel8:
+    supported: false
+    ci: false
+  rhel9:
+    supported: false
+    ci: false
+  rhel10:
+    supported: false
+    ci: false
+  rockylinux8:
+    supported: false
+    ci: false
+  rockylinux9:
+    supported: false
+    ci: false
+  rockylinux10:
+    supported: false
+    ci: false
+  oraclelinux8:
+    supported: false
+    ci: false
+  oraclelinux9:
+    supported: false
+    ci: false
+  oraclelinux10:
+    supported: false
+    ci: false
+  almalinux8:
+    supported: false
+    ci: false
+  almalinux9:
+    supported: false
+    ci: false
+  almalinux10:
+    supported: false
+    ci: false
+  debian11:
+    supported: false
+    ci: false
+  debian12:
+    supported: false
+    ci: false
+  debian13:
+    supported: false
+    ci: false
+  ubuntu2204:
+    supported: false
+    ci: false
+  ubuntu2404:
+    supported: false
+    ci: false
+  ubuntu2604:
+    supported: false
+    ci: false
+  fedora43:
+    supported: false
+    ci: false
+  fedora44:
+    supported: false
+    ci: false
+  win2012r2:
+    supported: true
+    ci: false
+  win2016:
+    supported: true
+    ci: false
+  win2019:
+    supported: true
+    ci: false
+  win2022:
+    supported: true
+    ci: false
+  win2025:
+    supported: true
+    ci: false
+
+# Molecule
+molecule:
+  requirements:
+    roles_extra: []
+

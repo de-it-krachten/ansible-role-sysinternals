@@ -1,0 +1,6 @@
+---
+
+- name: Execute movefile.exe
+  ansible.windows.win_command:
+    cmd: c:\windows\temp\movefile.exe -accepteula "{{ item }}" ""
+  loop: "{{ sysinternals_movefile_paths }}"
