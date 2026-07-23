@@ -8,7 +8,7 @@
     __sysinternals_dir: "{{ sysinternals_install_root }}/{{ sysinternals_tools_info[tool]['name'] }}"
     __sysinternals_exe: "{{ sysinternals_tools_info[tool]['exe'] }}"
 
-- name: Get tool from sysinternals
+- name: Get tool from sysinternals  # noqa ignore-errors
   ansible.builtin.get_url:
     url: "{{ __sysinternals_url }}"
     dest: "{{ __sysinternals_tmp_local }}"

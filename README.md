@@ -33,10 +33,10 @@ Note:
 ## Role Variables
 ### defaults/main.yml
 <pre><code>
-# 
+# Location where to install sysinternals to
 sysinternals_install_root: 'c:\windows\temp'
 
-#
+# Dict of diffeent sysinternal tools supported
 sysinternals_tools_info:
   pendmoves:
     name: pendmoves
@@ -51,6 +51,7 @@ sysinternals_tools_info:
     url: https://download.sysinternals.com/files/TCPView.zip
     exe: tcpview.exe
 
+# List of sysinternal tools created from dict above
 sysinternals_tools: "{{ sysinternals_tools_info | dict2items | json_query('[].key') }}"
 </pre></code>
 

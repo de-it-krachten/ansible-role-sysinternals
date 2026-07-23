@@ -1,24 +1,5 @@
 ---
 
-- name: Get pendmoves from sysinternals
-  ansible.builtin.get_url:
-    url: https://download.sysinternals.com/files/handle.zip
-    dest: files/handle.zip
-    mode: "0644"
-  delegate_to: localhost
-  ignore_errors: true
-
-- name: Copy handle.zip
-  ansible.windows.win_copy:
-    src: files/handle.zip
-    dest: c:\windows\temp\handle.zip
-
-- name: Unzip handle.zip
-  community.windows.win_unzip:
-    src: c:\windows\temp\handle.zip
-    dest: c:\windows\temp\
-    creates: c:\windows\temp\handle.exe
-
 - name: Get all open handles
   ansible.windows.win_shell: |
     $rawOutput = & C:\Windows\Temp\handle.exe -accepteula -nobanner -a "{{ handle_object }}"
